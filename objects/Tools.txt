@@ -1,0 +1,2 @@
+Test.cpp:234:43: error: implicit conversion changes signedness: 'int' to 'std::vector::size_type' (aka 'unsigned long') [-Werror,-Wsign-conversion]
+            CHECK(*SideIter == compare.at(indexOfVector)); // 5 1 4 2 3
