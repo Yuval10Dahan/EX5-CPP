@@ -14,9 +14,9 @@ class MagicalContainer
     private: 
         std::vector<int> mysticalElements_; // original container
 
-        std::vector<int> ascendingElements; // container in ascending order
-        std::vector<int> sideCrossElements; // container in side cross order
-        std::vector<int> primeElements; // container in prime order
+        std::vector<int> ascendingElements_; // container in ascending order
+        std::vector<int> sideCrossElements_; // container in side cross order
+        std::vector<int> primeElements_; // container in prime order
 
 
 
@@ -24,6 +24,14 @@ class MagicalContainer
 
         // constructor
         MagicalContainer() = default;
+
+        // getters
+        std::vector<int> getElements() const;
+        std::vector<int> getAscendingElements() const;
+        std::vector<int> getSideCrossElements() const;
+        std::vector<int> getPrimeElements() const;
+        
+
 
         // methods
         void addElement(int element);
@@ -33,6 +41,8 @@ class MagicalContainer
         void arrangeAscending();
         void arrangeSideCross();
         void arrangePrime();
+        void updateAll();
+        bool isNumPrime(int number) const;
 
 
 
@@ -44,11 +54,15 @@ class MagicalContainer
     {
         private:
             MagicalContainer &mContainer_;
+            size_t currIndex_;
 
         public:
 
             // Constructor
             AscendingIterator(MagicalContainer &container);
+
+            // 2 params constructor
+            AscendingIterator(MagicalContainer &container, size_t index);
 
             // // default constructor
             // AscendingIterator();
@@ -60,7 +74,8 @@ class MagicalContainer
             ~AscendingIterator();
 
             // getters
-            MagicalContainer getMagicalContainer() const;
+            MagicalContainer &getMagicalContainer() const;
+            size_t getCurrIndex() const;
 
             // operator= (Assignment operator)
             AscendingIterator& operator=(const AscendingIterator &other);
@@ -100,11 +115,15 @@ class MagicalContainer
     {
         private:
             MagicalContainer &mContainer_;
+            size_t currIndex_;
 
         public:
 
             // Constructor
             SideCrossIterator(MagicalContainer &container);
+
+            // 2 params constructor
+            SideCrossIterator(MagicalContainer &container, size_t index);
 
             // // default constructor
             // SideCrossIterator();
@@ -116,7 +135,8 @@ class MagicalContainer
             ~SideCrossIterator();
 
             // getters
-            MagicalContainer getMagicalContainer() const;
+            MagicalContainer &getMagicalContainer() const;
+            size_t getCurrIndex() const;
 
             // operator= (Assignment operator)
             SideCrossIterator& operator=(const SideCrossIterator &other);
@@ -156,12 +176,16 @@ class MagicalContainer
     {
         private:
             MagicalContainer &mContainer_;
+            size_t currIndex_;
 
         public:
 
             // Constructor
             PrimeIterator(MagicalContainer &container);
 
+            // 2 params constructor
+            PrimeIterator(MagicalContainer &container, size_t index);
+        
             // // default constructor
             // PrimeIterator();
 
@@ -172,7 +196,8 @@ class MagicalContainer
             ~PrimeIterator();
 
             // getters
-            MagicalContainer getMagicalContainer() const;
+            MagicalContainer &getMagicalContainer() const;
+            size_t getCurrIndex() const;
 
             // operator= (Assignment operator)
             PrimeIterator& operator=(const PrimeIterator &other);
@@ -200,5 +225,8 @@ class MagicalContainer
 
             // end iterator
             PrimeIterator end();
+
+            // other methods
+            
     };
 };

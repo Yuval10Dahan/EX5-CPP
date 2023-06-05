@@ -1,2 +1,6 @@
-Test.cpp:234:43: error: implicit conversion changes signedness: 'int' to 'std::vector::size_type' (aka 'unsigned long') [-Werror,-Wsign-conversion]
-            CHECK(*SideIter == compare.at(indexOfVector)); // 5 1 4 2 3
+sources/AscendingIterator.cpp:69:31: error: taking the address of a temporary object of type 'std::vector<int>' [-Waddress-of-temporary]
+    vector<int> *aElements1 = &this->mContainer_.getAscendingElements();
+                              ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+sources/AscendingIterator.cpp:70:31: error: taking the address of a temporary object of type 'std::vector<int>' [-Waddress-of-temporary]
+    vector<int> *aElements2 = &other.getMagicalContainer().getAscendingElements();
+                              ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

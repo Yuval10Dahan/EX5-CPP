@@ -1,4 +1,4 @@
-// #include "MagicalContainer.h"
+// #include "MagicalContainer.hpp"
 // #include <string>
 // #include <vector>
 // #include <random>
@@ -41,33 +41,71 @@
 
 //     cout << "#############################################################" << endl;
 
-//     vector<int> compare{ 5, 1, 4, 2, 3 };
-//     cout << compare.at(0) << endl;
-//     cout << compare.at(1) << endl;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+//     // vector<int> compare{ 5, 1, 4, 2, 3 };
+//     // cout << compare.at(0) << endl;
+//     // cout << compare.at(1) << endl;
 
 //     cout << "#############################################################" << endl;
 
+//     // MagicalContainer container;
+//     // container.addElement(1);
+//     // container.addElement(4);
+    
+//     // MagicalContainer::AscendingIterator it(container);
 
+//     // cout << " * = " << *it << endl; // 1
+//     // ++it;
+//     // cout << " * = " << *it << endl; // 4
 
+//     cout << "#############################################################" << endl;
+
+//     MagicalContainer A;
+//     A.addElement(10);
+//     A.addElement(20);
+//     A.addElement(31);
+//     A.addElement(15);
+//     A.addElement(7);
+
+//     cout << "Ascending:" << endl;
+//     cout << endl;
+
+//     MagicalContainer::AscendingIterator Ait(A);
+
+//     cout << " * = " << *Ait << endl; // 7
+//     ++Ait;
+//     cout << " * = " << *Ait << endl; // 10
+//     ++Ait;
+//     cout << " * = " << *Ait << endl; // 15
+//     ++Ait;
+//     cout << " * = " << *Ait << endl; // 20
+//     ++Ait;
+//     cout << " * = " << *Ait << endl; // 31
+
+//     cout << endl;
+//     cout << "Side Cross:" << endl;
+//     cout << endl;
+    
+//     MagicalContainer::SideCrossIterator Sit(A);
+
+//     cout << " * = " << *Sit << endl; // 10
+//     ++Sit;
+//     cout << " * = " << *Sit << endl; // 7
+//     ++Sit;
+//     cout << " * = " << *Sit << endl; // 20
+//     ++Sit;
+//     cout << " * = " << *Sit << endl; // 15
+//     ++Sit;
+//     cout << " * = " << *Sit << endl; // 31
+
+//     cout << endl;
+//     cout << "Prime:" << endl;
+//     cout << endl;
+
+//     MagicalContainer::PrimeIterator Pit(A);
+
+//     cout << " * = " << *Pit << endl; // 31
+//     ++Pit;
+//     cout << " * = " << *Pit << endl; // 7
 
 
 

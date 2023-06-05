@@ -1,5 +1,7 @@
 #include <iostream>
 #include <algorithm>
+#include <vector>
+#include <cmath>
 #include "MagicalContainer.hpp"
 
 
@@ -7,11 +9,34 @@ using namespace std;
 
 
 
+std::vector<int> MagicalContainer::getElements() const
+{
+    return this->mysticalElements_;
+}
+
+std::vector<int> MagicalContainer::getAscendingElements() const
+{
+    return this->ascendingElements_;
+}
+
+std::vector<int> MagicalContainer::getSideCrossElements() const
+{
+    return this->sideCrossElements_;
+}
+
+std::vector<int> MagicalContainer::getPrimeElements() const
+{
+    return this->primeElements_;
+}
+
 // this method adds a specific element to the container
 void MagicalContainer::addElement(int element)
 {
     // adds the element to the vector
     this->mysticalElements_.push_back(element);
+    
+    // arranges all vectors
+    updateAll();
 }
 
 // this method erase a specific element in the container - if there is such element
@@ -33,6 +58,9 @@ void MagicalContainer::removeElement(int element)
                     mysticalElements_.erase(loc);
                 }
             }
+
+            // arranges all vectors
+            updateAll();
         }
 
         // the element is not exists in the vector
@@ -77,4 +105,84 @@ bool MagicalContainer::elementExists(int element)
     {
         return false;
     }
+}
+
+void MagicalContainer::arrangeAscending()
+{
+    vector<int> AscendingVector = this->mysticalElements_;
+
+    std::sort(AscendingVector.begin(), AscendingVector.end());
+
+    this->ascendingElements_ = AscendingVector;
+}
+
+void MagicalContainer::arrangeSideCross()
+{
+    vector<int> SideCrossVector;
+
+    auto begin = this->mysticalElements_.begin();
+    auto end = this->mysticalElements_.end() - 1;
+
+    while (begin <= end)
+    {
+        SideCrossVector.push_back(*begin);
+
+        begin++;
+
+        if (begin <= end)
+        {
+            SideCrossVector.push_back(*end);
+            end--;
+        }
+    }
+
+    this->sideCrossElements_ = SideCrossVector;
+}
+
+void MagicalContainer::arrangePrime()
+{
+    vector<int> PrimeVector;
+
+    for(int number : this->mysticalElements_)
+    {
+        if(isNumPrime(number))
+        {
+            PrimeVector.push_back(number);
+        }
+    }
+
+    this->primeElements_ = PrimeVector;
+}
+
+void MagicalContainer::updateAll()
+{
+    // arrange the "ascendingElements" data member in ascending order
+    arrangeAscending();
+
+    // arrange the "sideCrossElements" data member in ascending order
+    arrangeSideCross();
+
+    // arrange the "primeElements" data member in ascending order
+    arrangePrime();
+}
+
+bool MagicalContainer::isNumPrime(int number) const
+{
+    bool prime = true;
+
+    if(number < 2)
+    {
+        prime = false;
+    }
+
+    for (int i = 2; i <= sqrt(number); i++)
+    {
+        if(number % i == 0)
+        {
+            prime = false;
+            break;
+        }
+    }
+    
+    return prime;
 }
