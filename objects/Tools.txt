@@ -1,6 +1,4 @@
-sources/AscendingIterator.cpp:69:31: error: taking the address of a temporary object of type 'std::vector<int>' [-Waddress-of-temporary]
-    vector<int> *aElements1 = &this->mContainer_.getAscendingElements();
-                              ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-sources/AscendingIterator.cpp:70:31: error: taking the address of a temporary object of type 'std::vector<int>' [-Waddress-of-temporary]
-    vector<int> *aElements2 = &other.getMagicalContainer().getAscendingElements();
-                              ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+TEST CASE:  Iterator Increment Beyond End
+  SideCross Iterator
+
+StudentTest1.cpp:434: ERROR: CHECK_THROWS_AS( ++it, runtime_error ) did NOT throw at all!

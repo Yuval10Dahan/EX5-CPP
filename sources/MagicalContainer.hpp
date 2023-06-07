@@ -31,7 +31,7 @@ class MagicalContainer
         // methods
         void addElement(int element);
         void removeElement(int element);
-        int size() const;
+        size_t size() const;
         bool elementExists(int element);
         void arrangePointerVector();
         bool isNumPrime(int number) const;

@@ -50,6 +50,12 @@ size_t MagicalContainer::AscendingIterator::getCurrIndex() const
 // operator= (Assignment operator)
 MagicalContainer::AscendingIterator& MagicalContainer::AscendingIterator::operator=(const AscendingIterator &other)
 {
+    // if the iterators are not pointing to the same containers - throw an exception
+    if( &this->mContainer_ != &other.getMagicalContainer() )
+    {
+        throw runtime_error("Iterators are not pointing to the same containers\n");
+    }
+
     // in case that other is actually this
     if (this == &other) 
     {
@@ -97,13 +103,21 @@ bool MagicalContainer::AscendingIterator::operator<(const AscendingIterator &oth
 // operator* (Dereference operator)
 int MagicalContainer::AscendingIterator::operator*() const
 {
-    return this->mContainer_.getElements().at(currIndex_);
+    // return this->mContainer_.getElements().at(currIndex_);
+    return this->mContainer_.getElements()[currIndex_];
 }
  
 // operator++ (prefix --> ++i)
 MagicalContainer::AscendingIterator& MagicalContainer::AscendingIterator::operator++()
 {
+    if(currIndex_ >= mContainer_.getElements().size())
+    {
+        throw runtime_error("Increment beyond the end\n");
+    }
+
+    // increment the index by 1
     this->currIndex_++;
+
     return *this; 
 }
 

@@ -75,7 +75,7 @@ void MagicalContainer::removeElement(int element)
 }
 
 // this method return the container's size
-int MagicalContainer::size() const
+size_t MagicalContainer::size() const
 {
     return mysticalElements_.size();
 }

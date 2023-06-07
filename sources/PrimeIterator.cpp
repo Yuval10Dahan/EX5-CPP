@@ -43,12 +43,18 @@ size_t MagicalContainer::PrimeIterator::getCurrIndex() const
     return this->currIndex_;
 }
 
-
+ 
 
 
 // operator= (Assignment operator)
 MagicalContainer::PrimeIterator& MagicalContainer::PrimeIterator::operator=(const PrimeIterator &other)
 {
+    // if the iterators are not pointing to the same containers - throw an exception
+    if( &this->mContainer_ != &other.getMagicalContainer() )
+    {
+        throw runtime_error("Iterators are not pointing to the same containers\n");
+    }
+
     // in case that other is actually this
     if (this == &other) 
     {
@@ -101,12 +107,17 @@ int MagicalContainer::PrimeIterator::operator*() const
     int *element = mContainer_.getPointerVector().at(currIndex_);
 
     // dereference the pointer to get the element itself
-    return *element;
+    return *element; 
 }
 
 // operator++ (prefix --> ++i)
 MagicalContainer::PrimeIterator& MagicalContainer::PrimeIterator::operator++()
 {
+    if(currIndex_ >= mContainer_.getPointerVector().size())
+    {
+        throw runtime_error("Increment beyond the end\n");
+    }
+
     // increment the index by 1
     this->currIndex_++;
 
@@ -120,5 +131,7 @@ MagicalContainer::PrimeIterator MagicalContainer::PrimeIterator::begin()
 
 MagicalContainer::PrimeIterator MagicalContainer::PrimeIterator::end()
 {
-    return PrimeIterator(mContainer_, mContainer_.size());
+    size_t size = this->mContainer_.getPointerVector().size();
+
+    return PrimeIterator(mContainer_, size);
 }
