@@ -17,14 +17,9 @@ MagicalContainer::PrimeIterator::PrimeIterator(MagicalContainer &container) : mC
 // 2 params constructor
 MagicalContainer::PrimeIterator::PrimeIterator(MagicalContainer &container, size_t index) : mContainer_(container), currIndex_(index) {}
 
-// // default constructor
-// PrimeIterator::PrimeIterator() : mContainer_(MagicalContainer()) {}
-
 // copy constructor
 MagicalContainer::PrimeIterator::PrimeIterator(const PrimeIterator& other) : mContainer_(other.mContainer_), currIndex_(other.currIndex_) {}
 
-// destructor
-MagicalContainer::PrimeIterator::~PrimeIterator() {}
 
 
 
@@ -33,11 +28,14 @@ MagicalContainer::PrimeIterator::~PrimeIterator() {}
 // ### getters ###
 // --------------------------
 
+
+// getter method for the "mContainer" data member
 const MagicalContainer& MagicalContainer::PrimeIterator::getMagicalContainer() const
 {
     return this->mContainer_;
 }
 
+// getter method for the "currIndex" data member
 size_t MagicalContainer::PrimeIterator::getCurrIndex() const
 {
     return this->currIndex_;
@@ -102,6 +100,12 @@ bool MagicalContainer::PrimeIterator::operator<(const PrimeIterator &other) cons
 // operator* (Dereference operator)
 int MagicalContainer::PrimeIterator::operator*() const
 {
+    // if there is attempt to dereference beyond the container range - throw an exception
+    if(currIndex_ >= mContainer_.getPointerVector().size())
+    {
+        throw runtime_error("Can't dereference beyond the container range\n");
+    }
+
     // the pointer to the current element in the vector that holds 
     // the addresses of the prime numbers in the container
     int *element = mContainer_.getPointerVector().at(currIndex_);
@@ -113,6 +117,7 @@ int MagicalContainer::PrimeIterator::operator*() const
 // operator++ (prefix --> ++i)
 MagicalContainer::PrimeIterator& MagicalContainer::PrimeIterator::operator++()
 {
+    // if the current index is equal/large than the pointer vector size - throw an exception
     if(currIndex_ >= mContainer_.getPointerVector().size())
     {
         throw runtime_error("Increment beyond the end\n");
@@ -124,13 +129,17 @@ MagicalContainer::PrimeIterator& MagicalContainer::PrimeIterator::operator++()
     return *this; 
 }
 
+// begin iterator
 MagicalContainer::PrimeIterator MagicalContainer::PrimeIterator::begin()
 {
+    // return iterator to the first position in the container
     return PrimeIterator(mContainer_);
 }
 
+// end iterator
 MagicalContainer::PrimeIterator MagicalContainer::PrimeIterator::end()
 {
+    // return iterator to the one position after the last position in the container
     size_t size = this->mContainer_.getPointerVector().size();
 
     return PrimeIterator(mContainer_, size);

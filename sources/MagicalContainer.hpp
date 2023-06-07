@@ -58,13 +58,16 @@ class MagicalContainer
             AscendingIterator(MagicalContainer &container, size_t index);
 
             // // default constructor
-            // AscendingIterator();
+            // AscendingIterator() = default;
 
             // copy constructor
             AscendingIterator(const AscendingIterator &other);
 
+            AscendingIterator(AscendingIterator &&other) = delete;  // Deleted move constructor
+            AscendingIterator& operator=(AscendingIterator &&other) = delete;  // Deleted move assignment operator
+
             // destructor
-            ~AscendingIterator();
+            ~AscendingIterator() = default;
 
             // getters
             const MagicalContainer& getMagicalContainer() const;
@@ -123,13 +126,16 @@ class MagicalContainer
             SideCrossIterator(MagicalContainer &container, size_t index);
 
             // // default constructor
-            // SideCrossIterator();
+            // SideCrossIterator() = default;
 
             // copy constructor
             SideCrossIterator(const SideCrossIterator &other);
 
+            SideCrossIterator(SideCrossIterator &&other) = delete;  // Deleted move constructor
+            SideCrossIterator& operator=(SideCrossIterator &&other) = delete;  // Deleted move assignment operator
+
             // destructor
-            ~SideCrossIterator();
+            ~SideCrossIterator() = default;
 
             // getters
             const MagicalContainer& getMagicalContainer() const;
@@ -188,13 +194,16 @@ class MagicalContainer
             PrimeIterator(MagicalContainer &container, size_t index);
 
             // // default constructor
-            // PrimeIterator();
+            // PrimeIterator() = default;
 
             // copy constructor
             PrimeIterator(const PrimeIterator &other);
 
+            PrimeIterator(PrimeIterator &&other) = delete;  // Deleted move constructor
+            PrimeIterator& operator=(PrimeIterator &&other) = delete;  // Deleted move assignment operator
+
             // destructor
-            ~PrimeIterator();
+            ~PrimeIterator() = default;
 
             // getters
             const MagicalContainer& getMagicalContainer() const;
@@ -226,7 +235,5 @@ class MagicalContainer
 
             // end iterator
             PrimeIterator end();
- 
-            void arrangePrime();
     };
 };

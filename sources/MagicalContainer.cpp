@@ -10,15 +10,19 @@ using namespace std;
 // ### getters ###
 // --------------------------
 
+
+// getter method for the "mysticalElements" data member
 std::vector<int> MagicalContainer::getElements() const
 {
     return this->mysticalElements_;
 }
 
+// getter method for the "pointerVector" data member
 const std::vector<int*>& MagicalContainer::getPointerVector() const
 {
     return this->pointerVector_;
 }
+
 
 
 

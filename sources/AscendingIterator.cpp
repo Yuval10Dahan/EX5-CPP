@@ -16,15 +16,9 @@ MagicalContainer::AscendingIterator::AscendingIterator(MagicalContainer &contain
 // 2 params constructor
 MagicalContainer::AscendingIterator::AscendingIterator(MagicalContainer &container, size_t index) : mContainer_(container), currIndex_(index) {}
 
-// // default constructor
-// AscendingIterator::AscendingIterator() : mContainer_(MagicalContainer()) {}
-
 // copy constructor
 MagicalContainer::AscendingIterator::AscendingIterator(const AscendingIterator &other) : mContainer_(other.mContainer_),
 currIndex_(other.currIndex_) {}
-
-// destructor
-MagicalContainer::AscendingIterator::~AscendingIterator() {}
 
 
 
@@ -33,11 +27,14 @@ MagicalContainer::AscendingIterator::~AscendingIterator() {}
 // ### getters ###
 // --------------------------
 
+
+// getter method for the "mContainer" data member
 const MagicalContainer& MagicalContainer::AscendingIterator::getMagicalContainer() const
 {
     return this->mContainer_;
 }
 
+// getter method for the "currIndex" data member
 size_t MagicalContainer::AscendingIterator::getCurrIndex() const
 {
     return this->currIndex_;
@@ -103,13 +100,19 @@ bool MagicalContainer::AscendingIterator::operator<(const AscendingIterator &oth
 // operator* (Dereference operator)
 int MagicalContainer::AscendingIterator::operator*() const
 {
-    // return this->mContainer_.getElements().at(currIndex_);
-    return this->mContainer_.getElements()[currIndex_];
+    // if there is attempt to dereference beyond the container range - throw an exception
+    if(currIndex_ >= mContainer_.size())
+    {
+        throw runtime_error("Can't dereference beyond the container range\n");
+    }
+    
+    return this->mContainer_.getElements().at(currIndex_);
 }
  
 // operator++ (prefix --> ++i)
 MagicalContainer::AscendingIterator& MagicalContainer::AscendingIterator::operator++()
 {
+    // if the current index is equal/large than the container size - throw an exception
     if(currIndex_ >= mContainer_.getElements().size())
     {
         throw runtime_error("Increment beyond the end\n");
@@ -121,14 +124,16 @@ MagicalContainer::AscendingIterator& MagicalContainer::AscendingIterator::operat
     return *this; 
 }
 
-
+// begin iterator
 MagicalContainer::AscendingIterator MagicalContainer::AscendingIterator::begin()
-{
+{   
+    // return iterator to the first position in the container
     return AscendingIterator(mContainer_);
 }
 
-
+// end iterator
 MagicalContainer::AscendingIterator MagicalContainer::AscendingIterator::end()
 {
+    // return iterator to the one position after the last position in the container
     return AscendingIterator(mContainer_, mContainer_.size());
 }

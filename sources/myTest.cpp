@@ -59,140 +59,155 @@
 
 //     cout << "#############################################################" << endl;
 
-//     MagicalContainer A;
-//     A.addElement(10);
-//     for(int elem : A.getElements())
-//     {
-//         cout << elem << ", "; // 10
-//     }
-//     cout << endl;
+//     // MagicalContainer A;
+//     // A.addElement(10);
+//     // for(int elem : A.getElements())
+//     // {
+//     //     cout << elem << ", "; // 10
+//     // }
+//     // cout << endl;
 
-//     A.addElement(20);
-//     for(int elem : A.getElements())
-//     {
-//         cout << elem << ", "; // 10 20
-//     }
-//     cout << endl;
+//     // A.addElement(20);
+//     // for(int elem : A.getElements())
+//     // {
+//     //     cout << elem << ", "; // 10 20
+//     // }
+//     // cout << endl;
 
-//     A.addElement(31);
-//     for(int elem : A.getElements())
-//     {
-//         cout << elem << ", "; // 10 20 31
-//     }
-//     cout << endl;
+//     // A.addElement(31);
+//     // for(int elem : A.getElements())
+//     // {
+//     //     cout << elem << ", "; // 10 20 31
+//     // }
+//     // cout << endl;
 
-//     A.addElement(15);
-//     for(int elem : A.getElements())
-//     {
-//         cout << elem << ", "; // 10 15 20 31
-//     }
-//     cout << endl;
+//     // A.addElement(15);
+//     // for(int elem : A.getElements())
+//     // {
+//     //     cout << elem << ", "; // 10 15 20 31
+//     // }
+//     // cout << endl;
 
-//     A.addElement(7);
-//     for(int elem : A.getElements())
-//     {
-//         cout << elem << ", "; // 7 10 15 20 31
-//     }
-//     cout << endl;
+//     // A.addElement(7);
+//     // for(int elem : A.getElements())
+//     // {
+//     //     cout << elem << ", "; // 7 10 15 20 31
+//     // }
+//     // cout << endl;
 
-//     A.addElement(12);
-//     for(int elem : A.getElements())
-//     {
-//         cout << elem << ", "; // 7 10 12 15 20 31
-//     }
-//     cout << endl;
+//     // A.addElement(12);
+//     // for(int elem : A.getElements())
+//     // {
+//     //     cout << elem << ", "; // 7 10 12 15 20 31
+//     // }
+//     // cout << endl;
 
-//     A.addElement(59);
-//     for(int elem : A.getElements())
-//     {
-//         cout << elem << ", "; // 7 10 12 15 20 31 59
-//     }
-//     cout << endl;
+//     // A.addElement(59);
+//     // for(int elem : A.getElements())
+//     // {
+//     //     cout << elem << ", "; // 7 10 12 15 20 31 59
+//     // }
+//     // cout << endl;
 
-//     A.removeElement(20);
-//     for(int elem : A.getElements())
-//     {
-//         cout << elem << ", "; // 7 10 12 15 31 59
-//     }
-//     cout << endl;
+//     // A.removeElement(20);
+//     // for(int elem : A.getElements())
+//     // {
+//     //     cout << elem << ", "; // 7 10 12 15 31 59
+//     // }
+//     // cout << endl;
 
 
 
-//     cout << "Ascending:" << endl;
-//     cout << endl;
+//     // cout << "Ascending:" << endl;
+//     // cout << endl;
 
-//     MagicalContainer::AscendingIterator Ait(A);
+//     // MagicalContainer::AscendingIterator Ait(A);
 
-//     cout << " * = " << *Ait << endl; // 7
-//     ++Ait;
-//     cout << " * = " << *Ait << endl; // 10
-//     ++Ait;
-//     cout << " * = " << *Ait << endl; // 12
-//     ++Ait;
-//     cout << " * = " << *Ait << endl; // 15
-//     ++Ait;
-//     cout << " * = " << *Ait << endl; // 31
+//     // cout << " * = " << *Ait << endl; // 7
+//     // ++Ait;
+//     // cout << " * = " << *Ait << endl; // 10
+//     // ++Ait;
+//     // cout << " * = " << *Ait << endl; // 12
+//     // ++Ait;
+//     // cout << " * = " << *Ait << endl; // 15
+//     // ++Ait;
+//     // cout << " * = " << *Ait << endl; // 31
 
-//     cout << endl;
-//     cout << "Side Cross:" << endl;
-//     cout << endl;
+//     // cout << endl;
+//     // cout << "Side Cross:" << endl;
+//     // cout << endl;
     
-//     MagicalContainer::SideCrossIterator Sit(A);
+//     // MagicalContainer::SideCrossIterator Sit(A);
 
-//     cout << " * = " << *Sit << endl; // 7
-//     ++Sit;
-//     cout << " * = " << *Sit << endl; // 59
-//     ++Sit;
-//     cout << " * = " << *Sit << endl; // 10
-
-//     ++Sit;
-//     cout << " * = " << *Sit << endl; // 31
-//     ++Sit;
-//     cout << " * = " << *Sit << endl; // 12
-
-//     cout << " begin = " << *Sit.begin() << endl; // 7
+//     // cout << " * = " << *Sit << endl; // 7
+//     // ++Sit;
+//     // cout << " * = " << *Sit << endl; // 59
+//     // ++Sit;
+//     // cout << " * = " << *Sit << endl; // 10
 
 //     // ++Sit;
-//     // cout << " * = " << *Sit << endl; // end
+//     // cout << " * = " << *Sit << endl; // 31
+//     // ++Sit;
+//     // cout << " * = " << *Sit << endl; // 12
+//     // ++Sit;
+//     // cout << " * = " << *Sit << endl; // 15
 
-//     cout << endl;
-//     cout << "Prime:" << endl;
-//     cout << endl;
+//     // cout << " begin = " << *Sit.begin() << endl; // 7
 
-//     MagicalContainer::PrimeIterator Pit(A);
+//     // cout << "currIndex = " << Sit.getCurrIndex() << endl;
+//     // ++Sit;
+
+//     // cout << "currIndex = " << Sit.getCurrIndex() << endl;
+//     // // cout << " * = " << *Sit << endl; // end
+
+//     // cout << endl;
+//     // cout << "Prime:" << endl;
+//     // cout << endl;
+
+//     // MagicalContainer::PrimeIterator Pit(A);
 
     
 
-//     cout << " * = " << *Pit << endl; // 7
-//     ++Pit;
-//     cout << " * = " << *Pit << endl; // 31
-//     ++Pit;
-//     cout << " * = " << *Pit << endl; // 59
-    
-
-//     // A.addElement(6);
-//     // A.addElement(19);
+//     // cout << " * = " << *Pit << endl; // 7
 //     // ++Pit;
-//     // cout << " * = " << *Pit << endl; // 19
-
+//     // cout << " * = " << *Pit << endl; // 31
+//     // ++Pit;
+//     // cout << " * = " << *Pit << endl; // 59
     
 
+//     // // A.addElement(6);
+//     // // A.addElement(19);
+//     // // ++Pit;
+//     // // cout << " * = " << *Pit << endl; // 19
+
+    
+//     cout << "#############################################################" << endl;
+
+//     // MagicalContainer container;
+//     // container.addElement(1);
+//     // container.addElement(2);
+//     // container.addElement(4); 
+//     // container.addElement(5);
+//     // container.addElement(14);
 
 
+//     // MagicalContainer::SideCrossIterator it(container);
 
+//     // // Increment until the end
+//     // while (it != it.end()) 
+//     // {
+//     //     // cout << "index = " << it.getCurrIndex() << endl;
+//     //     cout << "elem = " << *it << endl;
+//     //     // cout << "size = " << it.getMagicalContainer().size() << endl;
+//     //     cout << endl;
+//     //     ++it;
+//     // }
 
-
-
-
-
-
-
-
-
-
-
-
-
+//     // cout << endl;
+//     // cout << "index = " << it.getCurrIndex() << endl;
+//     // cout << "size = " << it.getMagicalContainer().size() << endl;
+    
+//     // ++it; // throw exception
 
 
 //     cout << "#############################################################" << endl;
