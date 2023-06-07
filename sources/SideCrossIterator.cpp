@@ -3,31 +3,39 @@
 #include "MagicalContainer.hpp"
 
 
-
 #define ZERO 0
 
 
 using namespace std;
 
 
-
+ 
 // Constructor
-MagicalContainer::SideCrossIterator::SideCrossIterator(MagicalContainer &container) : mContainer_(container), currIndex_(ZERO) {}
+MagicalContainer::SideCrossIterator::SideCrossIterator(MagicalContainer &container) : mContainer_(container), currIndex_(ZERO),
+Left_(ZERO), Right_(container.size() - 1), isLeft_(true), isRight_(false) {}
 
-// 2 params constructor
-MagicalContainer::SideCrossIterator::SideCrossIterator(MagicalContainer &container, size_t index) : mContainer_(container), currIndex_(index) {}
+// 2 params constructor - no need for Left/Right/isLeft/isRight becuase the iterator isn't bi-directional
+MagicalContainer::SideCrossIterator::SideCrossIterator(MagicalContainer &container, size_t index) : mContainer_(container), currIndex_(index),
+Left_(ZERO), Right_(ZERO), isLeft_(false), isRight_(false) {}
 
 // // default constructor
 // SideCrossIterator::SideCrossIterator() : mContainer_(MagicalContainer()) {}
 
-// copy constructor
-MagicalContainer::SideCrossIterator::SideCrossIterator(const SideCrossIterator &other) : mContainer_(other.mContainer_) {}
+// Copy constructor
+MagicalContainer::SideCrossIterator::SideCrossIterator(const SideCrossIterator& other) : mContainer_(other.mContainer_),
+currIndex_(other.currIndex_), Left_(other.Left_), Right_(other.Right_), isLeft_(other.isLeft_), isRight_(other.isRight_) {}
 
 // destructor
 MagicalContainer::SideCrossIterator::~SideCrossIterator() {}
 
-// getters
-MagicalContainer& MagicalContainer::SideCrossIterator::getMagicalContainer() const
+
+
+
+// --------------------------
+// ### getters ###
+// --------------------------
+
+const MagicalContainer& MagicalContainer::SideCrossIterator::getMagicalContainer() const
 {
     return this->mContainer_;
 }
@@ -36,6 +44,29 @@ size_t MagicalContainer::SideCrossIterator::getCurrIndex() const
 {
     return this->currIndex_;
 }
+
+size_t MagicalContainer::SideCrossIterator::getLeft() const
+{
+    return this->Left_;
+}
+
+size_t MagicalContainer::SideCrossIterator::getRight() const
+{
+    return this->Right_;
+}
+
+bool MagicalContainer::SideCrossIterator::getIsLeft() const
+{
+    return this->isLeft_;
+}
+
+bool MagicalContainer::SideCrossIterator::getIsRight() const
+{
+    return this->isRight_;
+}
+
+
+
 
 // operator= (Assignment operator)
 MagicalContainer::SideCrossIterator& MagicalContainer::SideCrossIterator::operator=(const SideCrossIterator &other)
@@ -49,6 +80,8 @@ MagicalContainer::SideCrossIterator& MagicalContainer::SideCrossIterator::operat
     // copy the data members otherwise
     this->mContainer_ = other.getMagicalContainer();
     this->currIndex_ = other.getCurrIndex();
+    this->Left_ = other.getLeft();
+    this->Right_ = other.getRight();
 
     // return the object after the changes
     return *this;
@@ -57,16 +90,26 @@ MagicalContainer::SideCrossIterator& MagicalContainer::SideCrossIterator::operat
 // operator == 
 bool MagicalContainer::SideCrossIterator::operator==(const SideCrossIterator &other) const
 {
-    MagicalContainer *cAddress1 = &this->mContainer_;
-    MagicalContainer *cAddress2 = &other.getMagicalContainer();
+    const MagicalContainer *cAddress1 = &this->mContainer_;
+    const MagicalContainer *cAddress2 = &other.getMagicalContainer();
 
     size_t index1 = this->currIndex_;
     size_t index2 = other.getCurrIndex();
 
-    vector<int> *sElements1 = &this->mContainer_.getSideCrossElements();
-    vector<int> *sElements2 = &other.getMagicalContainer().getSideCrossElements();
+    size_t Left1 = this->Left_;
+    size_t Left2 = other.getLeft();
 
-    return ( (cAddress1 == cAddress2) && (index1 == index2) && (sElements1 == sElements2) );
+    size_t Right1 = this->Right_;
+    size_t Right2 = other.getRight();
+
+    bool isLeft1 = this->isLeft_;
+    bool isLeft2 = other.getIsLeft();
+
+    bool isRight1 = this->isRight_;
+    bool isRight2 = other.getIsRight();
+
+    return ( (cAddress1 == cAddress2) && (index1 == index2) && (Left1 == Left2) && (Right1 == Right2) &&
+    (isLeft1 == isLeft2) && (isRight1 == isRight2) );
 }
 
 // operator !=
@@ -78,36 +121,64 @@ bool MagicalContainer::SideCrossIterator::operator!=(const SideCrossIterator &ot
 // operator >
 bool MagicalContainer::SideCrossIterator::operator>(const SideCrossIterator &other) const
 {
-    return false;
+    return (this->currIndex_ > other.getCurrIndex());
 }
 
 // operator <
 bool MagicalContainer::SideCrossIterator::operator<(const SideCrossIterator &other) const
 {
-    return false;
-}
+    return (this->currIndex_ < other.getCurrIndex());
+} 
 
 // operator* (Dereference operator)
 int MagicalContainer::SideCrossIterator::operator*() const
 {
-    return this->mContainer_.getSideCrossElements().at(currIndex_);
+    return this->mContainer_.getElements().at(currIndex_);
 }
 
 // operator++ (prefix --> ++i)
 MagicalContainer::SideCrossIterator& MagicalContainer::SideCrossIterator::operator++()
-{
-    this->currIndex_++;
-    return *this;
+{   
+    // it is not the end
+    if(Left_ != Right_)
+    {
+        // isRight == false
+        if(isLeft_ == true)
+        {   
+            // current index is from the right side
+            currIndex_ = Right_;
+            Right_--;
+            isLeft_ = false;
+            isRight_ = true;
+        }
+
+        // isRight == true
+        else
+        {
+            // current index is from the left side
+            Left_++;
+            currIndex_ = Left_;
+            isRight_ = false;
+            isLeft_ = true;
+        }
+    }
+
+    // Left == right
+    else
+    {   
+        // current index is out of the range of the container
+        currIndex_ = this->mContainer_.size();
+    }
+
+    return *this; 
 }
 
 MagicalContainer::SideCrossIterator MagicalContainer::SideCrossIterator::begin()
 {
-    return SideCrossIterator(mContainer_, ZERO);
+    return SideCrossIterator(mContainer_);
 }
 
 MagicalContainer::SideCrossIterator MagicalContainer::SideCrossIterator::end()
 {
-    size_t totalSize = mContainer_.getAscendingElements().size();
-    
-    return SideCrossIterator(mContainer_, totalSize);
+    return SideCrossIterator(mContainer_, mContainer_.size());
 }

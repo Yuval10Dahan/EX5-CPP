@@ -3,12 +3,11 @@
 #include "MagicalContainer.hpp"
 
 
-
 #define ZERO 0
 
 
-using namespace std;
 
+using namespace std;
 
 
 // constructor
@@ -22,15 +21,19 @@ MagicalContainer::AscendingIterator::AscendingIterator(MagicalContainer &contain
 
 // copy constructor
 MagicalContainer::AscendingIterator::AscendingIterator(const AscendingIterator &other) : mContainer_(other.mContainer_),
-currIndex_(other.getCurrIndex()) {}
+currIndex_(other.currIndex_) {}
 
 // destructor
 MagicalContainer::AscendingIterator::~AscendingIterator() {}
 
+
+
+
+// --------------------------
 // ### getters ###
+// --------------------------
 
-
-MagicalContainer& MagicalContainer::AscendingIterator::getMagicalContainer() const
+const MagicalContainer& MagicalContainer::AscendingIterator::getMagicalContainer() const
 {
     return this->mContainer_;
 }
@@ -39,6 +42,10 @@ size_t MagicalContainer::AscendingIterator::getCurrIndex() const
 {
     return this->currIndex_;
 }
+
+
+
+
 
 // operator= (Assignment operator)
 MagicalContainer::AscendingIterator& MagicalContainer::AscendingIterator::operator=(const AscendingIterator &other)
@@ -60,16 +67,13 @@ MagicalContainer::AscendingIterator& MagicalContainer::AscendingIterator::operat
 // operator == 
 bool MagicalContainer::AscendingIterator::operator==(const AscendingIterator &other) const
 {
-    MagicalContainer *cAddress1 = &this->mContainer_;
-    MagicalContainer *cAddress2 = &other.getMagicalContainer();
+    const MagicalContainer *cAddress1 = &this->mContainer_;
+    const MagicalContainer *cAddress2 = &other.getMagicalContainer();
 
     size_t index1 = this->currIndex_;
     size_t index2 = other.getCurrIndex();
 
-    vector<int> *aElements1 = &this->mContainer_.getAscendingElements();
-    vector<int> *aElements2 = &other.getMagicalContainer().getAscendingElements();
-
-    return ( (cAddress1 == cAddress2) && (index1 == index2) && (aElements1 == aElements2) );
+    return ( (cAddress1 == cAddress2) && (index1 == index2) );
 }
 
 // operator !=
@@ -81,21 +85,21 @@ bool MagicalContainer::AscendingIterator::operator!=(const AscendingIterator &ot
 // operator >
 bool MagicalContainer::AscendingIterator::operator>(const AscendingIterator &other) const
 {
-    return false;
+    return (this->currIndex_ > other.getCurrIndex());
 }
 
 // operator <
 bool MagicalContainer::AscendingIterator::operator<(const AscendingIterator &other) const
 {
-    return false;
+    return (this->currIndex_ < other.getCurrIndex());
 }
 
 // operator* (Dereference operator)
 int MagicalContainer::AscendingIterator::operator*() const
 {
-    return this->mContainer_.getAscendingElements().at(currIndex_);
+    return this->mContainer_.getElements().at(currIndex_);
 }
-
+ 
 // operator++ (prefix --> ++i)
 MagicalContainer::AscendingIterator& MagicalContainer::AscendingIterator::operator++()
 {
@@ -106,13 +110,11 @@ MagicalContainer::AscendingIterator& MagicalContainer::AscendingIterator::operat
 
 MagicalContainer::AscendingIterator MagicalContainer::AscendingIterator::begin()
 {
-    return AscendingIterator(mContainer_, ZERO);
+    return AscendingIterator(mContainer_);
 }
 
 
 MagicalContainer::AscendingIterator MagicalContainer::AscendingIterator::end()
 {
-    size_t totalSize = mContainer_.getAscendingElements().size();
-
-    return AscendingIterator(mContainer_, totalSize);
+    return AscendingIterator(mContainer_, mContainer_.size());
 }

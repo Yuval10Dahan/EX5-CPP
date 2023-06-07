@@ -1,11 +1,11 @@
 #include <iostream>
 #include <algorithm>
+#include <cmath>
 #include "MagicalContainer.hpp"
 
 
 
 #define ZERO 0
-
 
 using namespace std;
 
@@ -21,15 +21,19 @@ MagicalContainer::PrimeIterator::PrimeIterator(MagicalContainer &container, size
 // PrimeIterator::PrimeIterator() : mContainer_(MagicalContainer()) {}
 
 // copy constructor
-MagicalContainer::PrimeIterator::PrimeIterator(const PrimeIterator &other) : mContainer_(other.mContainer_) {}
+MagicalContainer::PrimeIterator::PrimeIterator(const PrimeIterator& other) : mContainer_(other.mContainer_), currIndex_(other.currIndex_) {}
 
 // destructor
 MagicalContainer::PrimeIterator::~PrimeIterator() {}
 
+
+
+
+// --------------------------
 // ### getters ###
+// --------------------------
 
-
-MagicalContainer& MagicalContainer::PrimeIterator::getMagicalContainer() const
+const MagicalContainer& MagicalContainer::PrimeIterator::getMagicalContainer() const
 {
     return this->mContainer_;
 }
@@ -38,6 +42,9 @@ size_t MagicalContainer::PrimeIterator::getCurrIndex() const
 {
     return this->currIndex_;
 }
+
+
+
 
 // operator= (Assignment operator)
 MagicalContainer::PrimeIterator& MagicalContainer::PrimeIterator::operator=(const PrimeIterator &other)
@@ -59,16 +66,13 @@ MagicalContainer::PrimeIterator& MagicalContainer::PrimeIterator::operator=(cons
 // operator == 
 bool MagicalContainer::PrimeIterator::operator==(const PrimeIterator &other) const
 {
-    MagicalContainer *cAddress1 = &this->mContainer_;
-    MagicalContainer *cAddress2 = &other.getMagicalContainer();
+    const MagicalContainer *cAddress1 = &this->mContainer_;
+    const MagicalContainer *cAddress2 = &other.getMagicalContainer();
 
     size_t index1 = this->currIndex_;
     size_t index2 = other.getCurrIndex();
 
-    vector<int> *pElements1 = &this->mContainer_.getPrimeElements();
-    vector<int> *pElements2 = &other.getMagicalContainer().getPrimeElements();
-
-    return ( (cAddress1 == cAddress2) && (index1 == index2) && (pElements1 == pElements2) );
+    return ( (cAddress1 == cAddress2) && (index1 == index2) );
 }
 
 // operator !=
@@ -80,38 +84,41 @@ bool MagicalContainer::PrimeIterator::operator!=(const PrimeIterator &other) con
 // operator >
 bool MagicalContainer::PrimeIterator::operator>(const PrimeIterator &other) const
 {
-    return false;
+    return (this->currIndex_ > other.getCurrIndex());
 }
 
 // operator <
 bool MagicalContainer::PrimeIterator::operator<(const PrimeIterator &other) const
 {
-    return false;
-} 
+    return (this->currIndex_ < other.getCurrIndex());
+}
 
 // operator* (Dereference operator)
 int MagicalContainer::PrimeIterator::operator*() const
 {
-    return this->mContainer_.getPrimeElements().at(currIndex_);
+    // the pointer to the current element in the vector that holds 
+    // the addresses of the prime numbers in the container
+    int *element = mContainer_.getPointerVector().at(currIndex_);
+
+    // dereference the pointer to get the element itself
+    return *element;
 }
 
 // operator++ (prefix --> ++i)
 MagicalContainer::PrimeIterator& MagicalContainer::PrimeIterator::operator++()
 {
+    // increment the index by 1
     this->currIndex_++;
-    return *this;
-}
 
+    return *this; 
+}
 
 MagicalContainer::PrimeIterator MagicalContainer::PrimeIterator::begin()
 {
-    return PrimeIterator(mContainer_, ZERO);
+    return PrimeIterator(mContainer_);
 }
-
 
 MagicalContainer::PrimeIterator MagicalContainer::PrimeIterator::end()
 {
-    size_t totalSize = mContainer_.getAscendingElements().size();
-    
-    return PrimeIterator(mContainer_, totalSize);
+    return PrimeIterator(mContainer_, mContainer_.size());
 }

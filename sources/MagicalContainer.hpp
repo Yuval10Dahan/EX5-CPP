@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <vector>
+#include <cmath>
 
 
 namespace ariel{}
@@ -13,10 +14,7 @@ class MagicalContainer
 {
     private: 
         std::vector<int> mysticalElements_; // original container
-
-        std::vector<int> ascendingElements_; // container in ascending order
-        std::vector<int> sideCrossElements_; // container in side cross order
-        std::vector<int> primeElements_; // container in prime order
+        std::vector<int*> pointerVector_; // int pointers to the elements in the container
 
 
 
@@ -27,24 +25,19 @@ class MagicalContainer
 
         // getters
         std::vector<int> getElements() const;
-        std::vector<int> getAscendingElements() const;
-        std::vector<int> getSideCrossElements() const;
-        std::vector<int> getPrimeElements() const;
+        const std::vector<int*>& getPointerVector() const;
         
-
 
         // methods
         void addElement(int element);
         void removeElement(int element);
         int size() const;
         bool elementExists(int element);
-        void arrangeAscending();
-        void arrangeSideCross();
-        void arrangePrime();
-        void updateAll();
+        void arrangePointerVector();
         bool isNumPrime(int number) const;
+        
 
-
+ 
 
     // ######################################################################################################
     // #####                                    AscendingIterator                                       #####
@@ -53,7 +46,7 @@ class MagicalContainer
     class AscendingIterator 
     {
         private:
-            MagicalContainer &mContainer_;
+            MagicalContainer &mContainer_; // reference to the container
             size_t currIndex_;
 
         public:
@@ -74,7 +67,7 @@ class MagicalContainer
             ~AscendingIterator();
 
             // getters
-            MagicalContainer &getMagicalContainer() const;
+            const MagicalContainer& getMagicalContainer() const;
             size_t getCurrIndex() const;
 
             // operator= (Assignment operator)
@@ -114,8 +107,12 @@ class MagicalContainer
     class SideCrossIterator
     {
         private:
-            MagicalContainer &mContainer_;
+            MagicalContainer &mContainer_; // reference to the container
             size_t currIndex_;
+            size_t Left_;
+            size_t Right_;
+            bool isLeft_;
+            bool isRight_;
 
         public:
 
@@ -135,8 +132,12 @@ class MagicalContainer
             ~SideCrossIterator();
 
             // getters
-            MagicalContainer &getMagicalContainer() const;
+            const MagicalContainer& getMagicalContainer() const;
             size_t getCurrIndex() const;
+            size_t getLeft() const;
+            size_t getRight() const;
+            bool getIsLeft() const;
+            bool getIsRight() const;
 
             // operator= (Assignment operator)
             SideCrossIterator& operator=(const SideCrossIterator &other);
@@ -175,17 +176,17 @@ class MagicalContainer
     class PrimeIterator
     {
         private:
-            MagicalContainer &mContainer_;
+            MagicalContainer &mContainer_; // reference to the container
             size_t currIndex_;
 
         public:
 
-            // Constructor
+            // Constructor 
             PrimeIterator(MagicalContainer &container);
 
             // 2 params constructor
             PrimeIterator(MagicalContainer &container, size_t index);
-        
+
             // // default constructor
             // PrimeIterator();
 
@@ -196,7 +197,7 @@ class MagicalContainer
             ~PrimeIterator();
 
             // getters
-            MagicalContainer &getMagicalContainer() const;
+            const MagicalContainer& getMagicalContainer() const;
             size_t getCurrIndex() const;
 
             // operator= (Assignment operator)
@@ -225,8 +226,7 @@ class MagicalContainer
 
             // end iterator
             PrimeIterator end();
-
-            // other methods
-            
+ 
+            void arrangePrime();
     };
 };
